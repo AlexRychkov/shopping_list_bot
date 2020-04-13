@@ -1,4 +1,4 @@
-name := "shopping_list_bot"
+name := "shopping_list"
 
 version := "0.1"
 

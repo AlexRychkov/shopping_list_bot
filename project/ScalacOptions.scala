@@ -9,6 +9,7 @@ object ScalacOptions {
     "-Wunused",
     "-Wvalue-discard",
     "-Xlint",
+    "-Xfatal-warnings",
 
     "-unchecked",
     "-feature",
