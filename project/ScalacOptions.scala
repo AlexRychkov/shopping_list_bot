@@ -5,11 +5,10 @@ object ScalacOptions {
     "-Wextra-implicit",
     "-Wnumeric-widen",
     "-Woctal-literal",
-    "-Wself-implicit",
     "-Wunused",
     "-Wvalue-discard",
     "-Xlint",
-    "-Xfatal-warnings",
+//    "-Xfatal-warnings",
 
     "-unchecked",
     "-feature",
