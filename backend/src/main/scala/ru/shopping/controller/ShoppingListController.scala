@@ -6,7 +6,6 @@ import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityCodec._
 import org.http4s.dsl.io._
 import ru.shopping.controller.dto.EditShoppingList
-import ru.shopping.domain.list.ShoppingList
 import ru.shopping.repository.ShoppingListRepository
 
 class ShoppingListController(private val shoppingListRepository: ShoppingListRepository) extends Controller {
@@ -20,7 +19,7 @@ class ShoppingListController(private val shoppingListRepository: ShoppingListRep
 
     case req@POST -> Root / creator => for {
       editShoppingList <- req.as[EditShoppingList]
-      resp <- Ok(shoppingListRepository.create(ShoppingList(creator, editShoppingList.name)))
+      resp <- Ok(shoppingListRepository.create(creator, editShoppingList.name))
     } yield resp
 
     case req@PUT -> Root / creator / name => for {
