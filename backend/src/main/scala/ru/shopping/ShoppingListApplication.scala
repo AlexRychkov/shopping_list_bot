@@ -13,8 +13,7 @@ object ShoppingListApplication extends IOApp {
     BlazeServerBuilder[IO]
       .bindHttp(8080, "localhost")
       .withHttpApp(httpAppConfig())
-      .serve
-      .compile
-      .drain
+      .resource
+      .use(_ => IO.never)
       .as(ExitCode.Success)
 }
