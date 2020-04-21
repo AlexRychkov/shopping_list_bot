@@ -14,9 +14,7 @@ lazy val frontend = module("frontend").dependsOn(common)
 
 lazy val moduleDependencies = Map(
   "backend" -> Seq(
-    "com.opentable.components" % "otj-pg-embedded" % "0.13.3" /*,
-    "org.scala-lang" % "scala-reflect" % scalaVer,
-    "org.scala-lang" % "scala-compiler" % scalaVer*/
+    "com.opentable.components" % "otj-pg-embedded" % "0.13.3"
   ).++:(Dependencies.circe)
     .++:(Dependencies.db)
     .++:(Dependencies.http4s)
