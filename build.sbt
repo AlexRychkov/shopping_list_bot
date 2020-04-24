@@ -13,7 +13,11 @@ lazy val bot = module("telegram").dependsOn(common)
 lazy val frontend = module("frontend").dependsOn(common)
 
 lazy val moduleDependencies = Map(
-  "backend" -> Seq("com.opentable.components" % "otj-pg-embedded" % "0.13.3")
+  "backend" -> Seq(
+    "com.opentable.components" % "otj-pg-embedded" % "0.13.3"
+  ).++:(Dependencies.circe)
+    .++:(Dependencies.db)
+    .++:(Dependencies.http4s)
 )
 
 def module(moduleName: String) = Project(moduleName, file(moduleName)).settings(

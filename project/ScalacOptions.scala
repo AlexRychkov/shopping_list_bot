@@ -5,7 +5,6 @@ object ScalacOptions {
     "-Wextra-implicit",
     "-Wnumeric-widen",
     "-Woctal-literal",
-    "-Wself-implicit",
     "-Wunused",
     "-Wvalue-discard",
     "-Xlint",
