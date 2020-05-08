@@ -1,10 +1,13 @@
-package ru.shopping.repository
+package ru.shopping.backend.repository
 
-import ru.shopping.database.ApplicationJdbcContext
-import ru.shopping.domain.item.{ItemMark, ListItem}
-import ru.shopping.domain.list.ShoppingList
+import io.getquill.MappedEncoding
+import ru.shopping.backend.database.ApplicationJdbcContext
+import ru.shopping.common.models.{ItemMark, ListItem, ShoppingList}
 
 class ListItemRepository(private val ctx: ApplicationJdbcContext) {
+
+  implicit val encodeItemMark = MappedEncoding[ItemMark, String](_.entryName)
+  implicit val decodeItemMark = MappedEncoding[String, ItemMark](ItemMark.withNameOption(_).get)
 
   import ctx._
 
@@ -24,7 +27,7 @@ class ListItemRepository(private val ctx: ApplicationJdbcContext) {
   }
 
   def get(listId: ShoppingList.Id): List[ListItem] = ctx.run(quote {
-    query[ListItem].filter(item => item.listId == lift(listId))
+    query[ListItem].filter(_.listId == lift(listId))
   })
 
   def get(listId: ShoppingList.Id, itemId: ListItem.Id): Option[ListItem] = ctx.run(quote {

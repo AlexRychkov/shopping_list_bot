@@ -1,7 +1,7 @@
-package ru.shopping.config
+package ru.shopping.backend.config
 
 import com.softwaremill.macwire.{Module, wire}
-import ru.shopping.repository.{ListItemRepository, ShoppingListRepository}
+import ru.shopping.backend.repository.{ListItemRepository, ShoppingListRepository}
 
 @Module
 class RepositoryConfig {

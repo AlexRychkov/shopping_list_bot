@@ -1,36 +1,36 @@
-package ru.shopping.repository
+package ru.shopping.backend.repository
 
-import ru.shopping.database.ApplicationJdbcContext
-import ru.shopping.domain.list.ShoppingList
-import ru.shopping.domain.user.UserId
+import ru.shopping.backend.database.ApplicationJdbcContext
+import ru.shopping.common.models
+import ru.shopping.common.models.{ShoppingList, User}
 
 class ShoppingListRepository(private val ctx: ApplicationJdbcContext) {
 
   import ctx._
 
-  def create(creator: String, name: String): ShoppingList = {
-    val shoppingList = ShoppingList(0L, creator, name)
+  def create(creator: User.Id, name: String): ShoppingList = {
+    val shoppingList = models.ShoppingList(0L, creator, name)
     val generatedId = ctx.run(quote {
       query[ShoppingList].insert(lift(shoppingList)).returningGenerated(_.id)
     })
     shoppingList.copy(id = generatedId)
   }
 
-  def get(creator: UserId, name: String): Option[ShoppingList] = ctx.run(quote {
+  def get(creator: User.Id, name: String): Option[ShoppingList] = ctx.run(quote {
     query[ShoppingList].filter(list => list.creator == lift(creator) && list.name == lift(name))
   }).headOption
 
-  def get(creator: UserId): List[ShoppingList] = ctx.run(quote {
+  def get(creator: User.Id): List[ShoppingList] = ctx.run(quote {
     query[ShoppingList].filter(_.creator == lift(creator))
   })
 
-  def edit(creator: String, name: String, newName: String): ShoppingList = ctx.run(quote {
+  def edit(creator: User.Id, name: String, newName: String): ShoppingList = ctx.run(quote {
     query[ShoppingList].filter(list => list.creator == lift(creator) && list.name == lift(name))
       .update(_.name -> lift(newName))
       .returning(r => r)
   })
 
-  def delete(creator: UserId, name: String): Unit = {
+  def delete(creator: User.Id, name: String): Unit = {
     ctx.run(quote {
       query[ShoppingList].filter(list => list.creator == lift(creator) && list.name == lift(name)).delete
     })

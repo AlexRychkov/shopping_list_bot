@@ -1,4 +1,4 @@
-package ru.shopping.database
+package ru.shopping.backend.database
 
 import io.getquill.{PostgresJdbcContext, SnakeCase}
 

@@ -1,11 +1,11 @@
-package ru.shopping.config
+package ru.shopping.backend.config
 
 import cats.effect.IO
 import com.softwaremill.macwire.{Module, wire, wireSet}
 import org.http4s.HttpApp
 import org.http4s.implicits._
 import org.http4s.server.Router
-import ru.shopping.controller.{Controller, ListItemController, ShoppingListController}
+import ru.shopping.backend.controller.{Controller, ListItemController, ShoppingListController}
 
 @Module
 class HttpAppConfig {

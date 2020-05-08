@@ -1,4 +1,4 @@
-package ru.shopping.controller
+package ru.shopping.backend.controller
 
 import cats.effect.IO
 import org.http4s.HttpRoutes

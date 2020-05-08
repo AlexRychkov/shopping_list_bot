@@ -1,10 +1,10 @@
-package ru.shopping
+package ru.shopping.backend
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
 import com.softwaremill.macwire._
 import org.http4s.server.blaze.BlazeServerBuilder
-import ru.shopping.config.HttpAppConfig
+import ru.shopping.backend.config.HttpAppConfig
 
 object ShoppingListApplication extends IOApp {
   private val httpAppConfig = wire[HttpAppConfig]
