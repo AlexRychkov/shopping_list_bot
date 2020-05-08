@@ -7,7 +7,7 @@ import ru.shopping.telegram.api.update.Processable
 import ru.shopping.telegram.engine.command._
 import ru.shopping.telegram.engine.command.base.{HelpCommandHandler, StartCommandHandler}
 import ru.shopping.telegram.engine.command.item.{ItemsCommandHandler, NewItemCommandHandler}
-import ru.shopping.telegram.engine.command.list.{ListsCommandHandler, NewListCommandHandler, RenameListCommandHandler}
+import ru.shopping.telegram.engine.command.list.{DeleteListCommandHandler, ListsCommandHandler, NewListCommandHandler, RenameListCommandHandler}
 
 class HandlersService(private val commandProcessors: Map[BotCommand, CommandHandler],
                       private val replyProcessors: Map[String, CommandHandler],
@@ -30,6 +30,7 @@ object HandlersService {
       new ListsCommandHandler(messageApi, listApi),
       new NewListCommandHandler(messageApi, listApi),
       new RenameListCommandHandler(messageApi, listApi),
+      new DeleteListCommandHandler(messageApi, listApi),
       new ItemsCommandHandler(messageApi, itemApi),
       new NewItemCommandHandler(messageApi, itemApi),
       unknownCommandHandler

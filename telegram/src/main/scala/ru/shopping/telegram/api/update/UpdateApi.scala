@@ -4,7 +4,7 @@ import cats.effect.IO
 import org.http4s.Uri
 import org.http4s.client.Client
 import ru.shopping.telegram.api.Api
-import ru.shopping.telegram.engine.UpdateIdStorage
+import ru.shopping.telegram.engine.storage.UpdateIdStorage
 
 class UpdateApi(private val client: Client[IO]) {
   def updates(): IO[Update] = client.expect[Update](updateUrl())

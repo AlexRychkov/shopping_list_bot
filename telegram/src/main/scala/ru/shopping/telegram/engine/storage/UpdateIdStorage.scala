@@ -1,4 +1,4 @@
-package ru.shopping.telegram.engine
+package ru.shopping.telegram.engine.storage
 
 import java.util.concurrent.atomic.AtomicLong
 

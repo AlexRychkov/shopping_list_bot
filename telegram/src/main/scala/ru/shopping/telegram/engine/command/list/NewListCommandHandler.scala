@@ -11,8 +11,8 @@ import ru.shopping.telegram.engine.command.{BotCommand, CommandHandler}
 class NewListCommandHandler(private val messageApi: MessageApi,
                             private val shoppingApi: ListApi) extends CommandHandler {
   override val processCommand: BotCommand = newList
-  override val processReply: Option[String] = Some(promptPhrase)
   private val promptPhrase = "Enter new list name"
+  override val processReply: Option[String] = Some(promptPhrase)
   private val listName = """/newList (.*)""".r
   private val list = """/newList[\s]*""".r
   private val name = """.+""".r

@@ -12,8 +12,8 @@ import ru.shopping.telegram.engine.storage.AttachedListStorage
 class NewItemCommandHandler(private val messageApi: MessageApi,
                             private val itemApi: ItemApi) extends CommandHandler {
   override val processCommand: BotCommand = newItem
-  override val processReply: Option[String] = Some(promptPhrase)
   private val promptPhrase = "Enter new item name"
+  override val processReply: Option[String] = Some(promptPhrase)
   private val listId = """/newItem (\d+).*""".r
   private val name = """.+""".r
 

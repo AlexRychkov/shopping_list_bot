@@ -13,4 +13,6 @@ object AttachedListStorage {
   }
 
   def get(userId: User.Id): Option[ShoppingList.Id] = Option(userList.get(userId))
+
+  def getOrElse(userId: User.Id): Option[ShoppingList.Id] = Option(userList.get(userId))
 }

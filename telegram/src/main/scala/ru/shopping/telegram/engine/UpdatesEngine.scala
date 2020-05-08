@@ -3,6 +3,7 @@ package ru.shopping.telegram.engine
 import cats.effect.IO
 import cats.implicits._
 import ru.shopping.telegram.api.update.{Update, UpdatesResult}
+import ru.shopping.telegram.engine.storage.UpdateIdStorage
 
 class UpdatesEngine(private val handlersService: HandlersService) {
   def process(updates: Update): IO[Unit] = {

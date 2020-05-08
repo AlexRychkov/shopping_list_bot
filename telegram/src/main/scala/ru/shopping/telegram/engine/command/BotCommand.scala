@@ -18,6 +18,8 @@ object BotCommand extends Enum[BotCommand] {
 
   case object newList extends BotCommand
 
+  case object deleteList extends BotCommand
+
   case object renameList extends BotCommand
 
   case object items extends BotCommand

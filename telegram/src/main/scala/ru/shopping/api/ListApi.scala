@@ -2,6 +2,8 @@ package ru.shopping.api
 
 import cats.effect.IO
 import org.http4s.Method.POST
+import org.http4s.Method.PUT
+import org.http4s.Method.DELETE
 import org.http4s.Request
 import org.http4s.client.Client
 import ru.shopping.common.dto.EditShoppingList
@@ -18,6 +20,18 @@ class ListApi(private val client: Client[IO]) {
   def lists(userId: User.Id): IO[List[ShoppingList]] = {
     val uri = Api.lists(userId)
     client.expect[List[ShoppingList]](uri)
+  }
+
+  def rename(listId: ShoppingList.Id, name: String): IO[Unit] = {
+    val req = Request(PUT)
+      .withEntity(EditShoppingList(name))
+      .withUri(Api.lists(listId))
+    client.expect[Unit](req)
+  }
+
+  def delete(listId: ShoppingList.Id): IO[Unit] = {
+    val req = Request[IO](DELETE, Api.lists(listId))
+    client.expect[Unit](req)
   }
 }
 
