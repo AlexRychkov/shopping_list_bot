@@ -16,5 +16,7 @@ create table if not exists list_item (
     comment varchar(128),
     price numeric(19,2),
     mark varchar(10) not null,
-    primary key (id)
+    primary key (id),
+    foreign key (list_id) references shopping_list(id)
+        on delete cascade
 );
