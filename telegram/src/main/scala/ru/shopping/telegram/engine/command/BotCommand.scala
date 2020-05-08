@@ -26,4 +26,11 @@ object BotCommand extends Enum[BotCommand] {
 
   case object newItem extends BotCommand
 
+  case object markCanceled extends BotCommand
+
+  case object markBought extends BotCommand
+
+  case object markAbsent extends BotCommand
+
+  case object markWait extends BotCommand
 }
