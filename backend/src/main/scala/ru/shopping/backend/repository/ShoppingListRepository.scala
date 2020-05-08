@@ -24,15 +24,15 @@ class ShoppingListRepository(private val ctx: ApplicationJdbcContext) {
     query[ShoppingList].filter(_.creator == lift(creator))
   })
 
-  def edit(creator: User.Id, name: String, newName: String): ShoppingList = ctx.run(quote {
-    query[ShoppingList].filter(list => list.creator == lift(creator) && list.name == lift(name))
+  def edit(listId: ShoppingList.Id, newName: String): ShoppingList = ctx.run(quote {
+    query[ShoppingList].filter(list => list.id == lift(listId))
       .update(_.name -> lift(newName))
       .returning(r => r)
   })
 
-  def delete(creator: User.Id, name: String): Unit = {
+  def delete(listId: ShoppingList.Id): Unit = {
     ctx.run(quote {
-      query[ShoppingList].filter(list => list.creator == lift(creator) && list.name == lift(name)).delete
+      query[ShoppingList].filter(list => list.id == lift(listId)).delete
     })
     ()
   }

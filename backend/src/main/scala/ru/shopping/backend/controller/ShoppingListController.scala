@@ -22,11 +22,11 @@ class ShoppingListController(private val shoppingListRepository: ShoppingListRep
       resp <- Ok(shoppingListRepository.create(creator, editShoppingList.name))
     } yield resp
 
-    case req@PUT -> Root / LongVar(creator) / name => for {
+    case req@PUT -> Root / LongVar(listId) => for {
       editShoppingList <- req.as[EditShoppingList]
-      resp <- Ok(shoppingListRepository.edit(creator, name, editShoppingList.name))
+      resp <- Ok(shoppingListRepository.edit(listId, editShoppingList.name))
     } yield resp
 
-    case DELETE -> Root / LongVar(creator) / name => Ok(shoppingListRepository.delete(creator, name))
+    case DELETE -> Root / LongVar(listId) => Ok(shoppingListRepository.delete(listId))
   }
 }
