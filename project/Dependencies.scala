@@ -3,24 +3,15 @@ import sbt._
 
 object Dependencies {
 
-  val akkaHttp = Seq(
-    "com.typesafe.akka" %% "akka-http" % "10.1.11",
-    "de.heikoseeberger" %% "akka-http-circe" % "1.31.0",
-    "com.typesafe.akka" %% "akka-testkit" % "2.6.4" % Test,
-    "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11" % Test
-  )
-
   val circe = Seq(
     "io.circe" %% "circe-core" % circeVersion,
     "io.circe" %% "circe-generic" % circeVersion,
-    "io.circe" %% "circe-parser" % circeVersion,
-    "io.circe" %% "circe-optics" % circeVersion,
-    "io.circe" %% "circe-literal" % circeVersion
+    "io.circe" %% "circe-literal" % circeVersion,
+    "org.http4s" %% "http4s-circe" % http4sVersion
   )
 
   val http4s = Seq(
     "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-    "org.http4s" %% "http4s-circe" % http4sVersion,
     "org.http4s" %% "http4s-dsl" % http4sVersion,
     "org.http4s" %% "http4s-blaze-client" % http4sVersion
   )
@@ -60,7 +51,7 @@ object Dependencies {
 }
 
 object Versions {
-  val http4sVersion = "0.21.2"
+  val http4sVersion = "0.21.3"
   val circeVersion = "0.13.0"
   val slickVersion = "3.3.2"
   val quillVersion = "3.5.1"
