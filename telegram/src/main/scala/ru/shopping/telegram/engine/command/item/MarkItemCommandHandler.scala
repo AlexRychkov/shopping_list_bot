@@ -20,7 +20,7 @@ trait MarkItemCommandHandler extends CommandHandler {
   protected lazy val itemIdRegex: Regex = s"""/mark${markRegexInline} (\\d+).*""".r
 
   override protected def handleInner(update: Processable): IO[Unit] = update match {
-    case callbackQuery@CallbackQuery(_, _, _, _) => handleQuery(callbackQuery)
+    case callbackQuery: CallbackQuery => handleQuery(callbackQuery)
     case _ => IO.unit
   }
 

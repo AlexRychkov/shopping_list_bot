@@ -15,7 +15,7 @@ class ListsCommandHandler(private val messageApi: MessageApi,
   override val processReply: Option[String] = Some(HelpMapper.showListsPhrase)
 
   override protected def handleInner(update: Processable): IO[Unit] = update match {
-    case message@Message(_, _, _, _, _, _) => for {
+    case message: Message => for {
       lists <- listApi.lists(update.userId)
       _ = ListInfoStorage.put(lists)
       reply = ListMapper(message.chatId, lists)

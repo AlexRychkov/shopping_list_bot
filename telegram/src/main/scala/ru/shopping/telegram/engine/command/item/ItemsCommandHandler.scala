@@ -15,12 +15,12 @@ class ItemsCommandHandler(private val messageApi: MessageApi,
   private val itemsRegex = """/items (\d+)""".r
 
   override protected def handleInner(update: Processable): IO[Unit] = update match {
-    case message@CallbackQuery(id, _, _, _) => for {
-      _ <- messageApi.answerCallbackQuery(AnswerCallbackQuery(id))
+    case callbackQuery: CallbackQuery => for {
+      _ <- messageApi.answerCallbackQuery(AnswerCallbackQuery(callbackQuery.id))
       listId = extractListId(update)
       _ = AttachedListStorage.put(update.userId, listId)
       items <- itemApi.items(listId)
-      reply = ItemMapper(message.chatId, items)
+      reply = ItemMapper(callbackQuery.chatId, items)
       _ <- messageApi.sendMessage(reply)
     } yield ()
     case _ => IO.unit

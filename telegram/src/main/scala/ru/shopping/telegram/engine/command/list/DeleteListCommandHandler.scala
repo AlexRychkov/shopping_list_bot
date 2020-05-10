@@ -15,7 +15,7 @@ class DeleteListCommandHandler(private val messageApi: MessageApi,
   private val listIdRegex = """/deleteList (\d+).*""".r
 
   override protected def handleInner(update: Processable): IO[Unit] = update match {
-    case callbackQuery@CallbackQuery(_, _, _, _) => handleQuery(callbackQuery)
+    case callbackQuery: CallbackQuery => handleQuery(callbackQuery)
     case _ => IO.unit
   }
 

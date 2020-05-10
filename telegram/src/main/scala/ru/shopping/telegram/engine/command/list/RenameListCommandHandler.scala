@@ -18,8 +18,8 @@ class RenameListCommandHandler(private val messageApi: MessageApi,
   private val listIdRegex = """/renameList (\d+).*""".r
 
   override protected def handleInner(update: Processable): IO[Unit] = update match {
-    case callbackQuery@CallbackQuery(_, _, _, _) => handleQuery(callbackQuery)
-    case message@Message(_, _, _, _, _, _) => handleMessage(message)
+    case callbackQuery: CallbackQuery => handleQuery(callbackQuery)
+    case message: Message => handleMessage(message)
     case _ => IO.unit
   }
 
