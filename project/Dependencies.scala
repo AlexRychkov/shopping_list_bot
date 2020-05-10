@@ -10,6 +10,10 @@ object Dependencies {
     "org.http4s" %% "http4s-circe" % http4sVersion
   )
 
+  val config = Seq(
+    "com.github.pureconfig" %% "pureconfig" % "0.12.3"
+  )
+
   val http4s = Seq(
     "org.http4s" %% "http4s-blaze-server" % http4sVersion,
     "org.http4s" %% "http4s-dsl" % http4sVersion,
@@ -47,7 +51,7 @@ object Dependencies {
     "org.scalamock" %% "scalamock" % "4.4.0" % Test
   )
 
-  val commonDependencies = macwire ++ logging ++ enumeratum ++ test
+  val commonDependencies = config ++ macwire ++ logging ++ enumeratum ++ test
 }
 
 object Versions {
