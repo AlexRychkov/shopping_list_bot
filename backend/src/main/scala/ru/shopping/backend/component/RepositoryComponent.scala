@@ -1,11 +1,11 @@
-package ru.shopping.backend.config
+package ru.shopping.backend.component
 
 import com.softwaremill.macwire.{Module, wire}
 import ru.shopping.backend.repository.{ListItemRepository, ShoppingListRepository}
 
 @Module
-class RepositoryConfig {
+class RepositoryComponent {
   lazy val shoppingListRepository = wire[ShoppingListRepository]
   lazy val listItemRepository = wire[ListItemRepository]
-  val databaseConfig = wire[DatabaseConfig]
+  val databaseComponent = wire[DatabaseComponent]
 }

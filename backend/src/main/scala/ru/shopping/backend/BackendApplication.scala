@@ -2,12 +2,15 @@ package ru.shopping.backend
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.wire
 import org.http4s.server.blaze.BlazeServerBuilder
-import ru.shopping.backend.config.HttpAppConfig
+import ru.shopping.backend.component.{HttpAppComponent, ServiceComponent}
 
-object ShoppingListApplication extends IOApp {
-  private val httpAppConfig = wire[HttpAppConfig]
+import scala.annotation.unused
+
+object BackendApplication extends IOApp {
+  @unused private val serviceComponent = wire[ServiceComponent]
+  private val httpAppConfig = wire[HttpAppComponent]
 
   override def run(args: List[String]): IO[ExitCode] =
     BlazeServerBuilder[IO]
