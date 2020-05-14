@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const INVALID_TOKEN = 'INVALID_TOKEN'
+
 export default class ApiClient {
   constructor() {
     this.defaultOptions = {
@@ -16,19 +18,28 @@ export default class ApiClient {
   }
 
   handleError(error) {
+    console.log(error)
     if (error.response && error.response.data) {
+      if (error.response.status === 403) return
       throw new Error(error.response.data.message);
     }
     throw new Error('Unknown Error');
   }
 
-  async login(token) {
+  async exchToken(token) {
     return this
       .handleRequest({
         method: 'get',
-        url: `/api/v1/auth/${token}`,
+        url: `/api/v1/auth/exch`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
       })
       .then(res => res.data)
-      .catch(this.handleError);
+      .catch(error => {
+        if (error.response && error.response.status === 403) return INVALID_TOKEN
+        else this.handleError(error)
+      })
   }
 }
