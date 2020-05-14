@@ -1,13 +1,11 @@
-import Versions._
 import sbt._
 
 object Dependencies {
-
   val circe = Seq(
-    "io.circe" %% "circe-core" % circeVersion,
-    "io.circe" %% "circe-generic" % circeVersion,
-    "io.circe" %% "circe-literal" % circeVersion,
-    "org.http4s" %% "http4s-circe" % http4sVersion
+    "io.circe" %% "circe-core" % Version.circe,
+    "io.circe" %% "circe-generic" % Version.circe,
+    "io.circe" %% "circe-literal" % Version.circe,
+    "org.http4s" %% "http4s-circe" % Version.http4s
   )
 
   val config = Seq(
@@ -15,9 +13,13 @@ object Dependencies {
   )
 
   val http4s = Seq(
-    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-    "org.http4s" %% "http4s-dsl" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-client" % http4sVersion
+    "org.http4s" %% "http4s-blaze-server" % Version.http4s,
+    "org.http4s" %% "http4s-dsl" % Version.http4s,
+    "org.http4s" %% "http4s-blaze-client" % Version.http4s
+  )
+
+  val jwt = Seq (
+    "com.pauldijou" %% "jwt-circe" % Version.jwt
   )
 
   val macwire = Seq(
@@ -31,8 +33,8 @@ object Dependencies {
   )
 
   val slick = Seq(
-    "com.typesafe.slick" %% "slick" % slickVersion,
-    "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
+    "com.typesafe.slick" %% "slick" % Version.slick,
+    "com.typesafe.slick" %% "slick-hikaricp" % Version.slick
   )
 
   val enumeratum = Seq(
@@ -43,7 +45,7 @@ object Dependencies {
 
   val db = Seq(
     "org.postgresql" % "postgresql" % "42.2.8",
-    "io.getquill" %% "quill-jdbc" % quillVersion
+    "io.getquill" %% "quill-jdbc" % Version.quill
   )
 
   val test = Seq(
@@ -51,13 +53,5 @@ object Dependencies {
     "org.scalamock" %% "scalamock" % "4.4.0" % Test
   )
 
-  val commonDependencies = config ++ macwire ++ logging ++ enumeratum ++ test
-}
-
-object Versions {
-  val http4sVersion = "0.21.3"
-  val circeVersion = "0.13.0"
-  val slickVersion = "3.3.2"
-  val quillVersion = "3.5.1"
-  val scalaVer = "2.13.1"
+  val common = config ++ macwire ++ logging ++ enumeratum ++ test
 }

@@ -1,28 +1,24 @@
 name := "shopping_list"
-
 version := "0.1"
+scalaVersion := Version.scala
 
-scalaVersion := "2.13.1"
+lazy val moduleDependencies = Map(
+  "backend" -> Seq(Dependencies.circe, Dependencies.db, Dependencies.http4s, Dependencies.jwt).flatten,
+  "common" -> Dependencies.circe,
+  "telegram" -> Seq(Dependencies.http4s, Dependencies.circe).flatten
+)
+
+def module(moduleName: String) = Project(moduleName, file(moduleName))
+  .settings(
+    scalaVersion := Version.scala,
+    scalacOptions := ScalacOptions.options,
+    libraryDependencies ++= Dependencies.common ++ moduleDependencies.getOrElse(moduleName, Seq())
+  )
 
 lazy val common = module("common")
 
-lazy val backend = module("backend").dependsOn(common)
+lazy val backend = module("backend")
+  .dependsOn(common)
 
-lazy val bot = module("telegram").dependsOn(common)
-
-lazy val frontend = module("frontend").dependsOn(common)
-
-lazy val moduleDependencies = Map(
-  "backend" -> Seq("com.opentable.components" % "otj-pg-embedded" % "0.13.3")
-    .++:(Dependencies.circe)
-    .++:(Dependencies.db)
-    .++:(Dependencies.http4s),
-  "common" -> Dependencies.circe,
-  "telegram" -> Dependencies.http4s.++:(Dependencies.circe)
-)
-
-def module(moduleName: String) = Project(moduleName, file(moduleName)).settings(
-  scalaVersion := "2.13.1",
-  scalacOptions := ScalacOptions.options,
-  libraryDependencies ++= Dependencies.commonDependencies ++ moduleDependencies.getOrElse(moduleName, Seq())
-)
+lazy val bot = module("telegram")
+  .dependsOn(common)
