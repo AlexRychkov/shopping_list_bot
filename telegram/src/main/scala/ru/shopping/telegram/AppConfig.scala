@@ -8,7 +8,9 @@ final case class TelegramConfig(baseUri: String, token: String)
 
 final case class BackendConfig(baseUri: String)
 
-final case class AppConfig(telegram: TelegramConfig, backend: BackendConfig)
+final case class FrontendConfig(url: String)
+
+final case class AppConfig(telegram: TelegramConfig, backend: BackendConfig, frontend: FrontendConfig)
 
 object AppConfig {
   def apply(): Resource[IO, AppConfig] = {

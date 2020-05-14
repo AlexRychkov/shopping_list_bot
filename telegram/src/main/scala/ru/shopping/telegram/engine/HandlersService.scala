@@ -1,11 +1,12 @@
 package ru.shopping.telegram.engine
 
 import cats.effect.IO
-import ru.shopping.api.{ItemApi, ListApi}
+import ru.shopping.api.{AuthApi, ItemApi, ListApi}
+import ru.shopping.telegram.AppConfig
 import ru.shopping.telegram.api.message.MessageApi
 import ru.shopping.telegram.api.update.Processable
 import ru.shopping.telegram.engine.command._
-import ru.shopping.telegram.engine.command.base.{HelpCommandHandler, StartCommandHandler}
+import ru.shopping.telegram.engine.command.base.{CabinetCommandHandler, HelpCommandHandler, StartCommandHandler}
 import ru.shopping.telegram.engine.command.item.{ItemsCommandHandler, MarkAbsentItemCommandHandler, MarkBoughtItemCommandHandler, MarkCanceledItemCommandHandler, MarkWaitItemCommandHandler, NewItemCommandHandler}
 import ru.shopping.telegram.engine.command.list.{DeleteListCommandHandler, ListsCommandHandler, NewListCommandHandler, RenameListCommandHandler}
 
@@ -22,7 +23,7 @@ class HandlersService(private val commandProcessors: Map[BotCommand, CommandHand
 }
 
 object HandlersService {
-  def apply(messageApi: MessageApi, listApi: ListApi, itemApi: ItemApi): HandlersService = {
+  def apply(config: AppConfig, messageApi: MessageApi, listApi: ListApi, itemApi: ItemApi, authApi: AuthApi): HandlersService = {
     val unknownCommandHandler = new UnknownCommandHandler()
     val commandHandlers = Seq(
       new StartCommandHandler(messageApi),
@@ -37,6 +38,7 @@ object HandlersService {
       new MarkBoughtItemCommandHandler(messageApi, itemApi),
       new MarkCanceledItemCommandHandler(messageApi, itemApi),
       new MarkWaitItemCommandHandler(messageApi, itemApi),
+      new CabinetCommandHandler(config, messageApi, authApi),
       unknownCommandHandler
     )
     val commandProcessors: Map[BotCommand, CommandHandler] = commandHandlers.map(ch => ch.processCommand -> ch).toMap
