@@ -1,4 +1,4 @@
-package ru.shopping.config
+package ru.shopping.telegram
 
 import cats.effect.{IO, Resource, Sync}
 import pureconfig._

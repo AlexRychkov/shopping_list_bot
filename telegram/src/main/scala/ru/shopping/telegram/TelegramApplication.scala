@@ -1,10 +1,9 @@
-package ru.shopping
+package ru.shopping.telegram
 
 import cats.effect.{ExitCode, IO, IOApp}
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.client.middleware.Logger
 import ru.shopping.api.{BackendApi, ItemApi, ListApi}
-import ru.shopping.config.AppConfig
 import ru.shopping.telegram.api.TelegramApi
 import ru.shopping.telegram.api.message.MessageApi
 import ru.shopping.telegram.api.update.UpdateApi

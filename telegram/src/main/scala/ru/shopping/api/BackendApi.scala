@@ -2,7 +2,7 @@ package ru.shopping.api
 
 import org.http4s.Uri
 import ru.shopping.common.models.{ListItem, ShoppingList}
-import ru.shopping.config.BackendConfig
+import ru.shopping.telegram.BackendConfig
 
 class BackendApi(backendConfig: BackendConfig) {
   private val baseApi = Uri.unsafeFromString(backendConfig.baseUri) / "api" / "v1"
