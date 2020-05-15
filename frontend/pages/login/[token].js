@@ -1,23 +1,32 @@
 import ApiClient, {INVALID_TOKEN} from '../../lib/api-client'
-import redirect from "../../lib/redirect"
+import {useRouter} from 'next/router'
 
-function Login({loggedIn}) {
+const Login = ({loggedIn, token}) => {
+  if (token && typeof document !== "undefined") {
+    localStorage.setItem('token', token)
+    const router = useRouter()
+    router.push('/dashboard')
+  }
+
   return (
     <>
-      { loggedIn && <p>You're not logged in. Use <a href="/">main page</a> for instructions.</p> }
-      { !loggedIn && <p>You're logged in. Go to <a href="/dashboard">dashboard</a>.</p> }
+      {loggedIn && <p>You're not logged in. Use <a href="/">main page</a> for instructions.</p>}
+      {!loggedIn && <p>You're logged in. Go to <a href="/dashboard">dashboard</a>.</p>}
     </>
   )
 }
 
 export default Login
 
-export async function getServerSideProps({params, res}) {
+export async function getServerSideProps({params}) {
   const apiClient = new ApiClient();
   const exchangedToken = await apiClient.exchToken(params.token)
-  if (exchangedToken !== INVALID_TOKEN){
-    // TODO localStorage set authorization
-    redirect(res, '/dashboard')
+  if (exchangedToken !== INVALID_TOKEN) {
+    return {
+      props: {
+        token: exchangedToken
+      }
+    }
   } else return {
     props: {
       loggedIn: !!exchangedToken

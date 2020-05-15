@@ -2,6 +2,21 @@ import axios from 'axios';
 
 export const INVALID_TOKEN = 'INVALID_TOKEN'
 
+export const PeriodEnum = Object.freeze({
+  "DAY": 0,
+  "WEEK": 1,
+  "MONTH": 2,
+  "YEAR": 3,
+  "ALL_TIME": 4
+})
+
+export const MarkEnum = Object.freeze({
+  "WAIT": 0,
+  "ABSENT": 1,
+  "BOUGHT": 2,
+  "CANCELED": 3
+})
+
 export default class ApiClient {
   constructor() {
     this.defaultOptions = {
@@ -18,9 +33,7 @@ export default class ApiClient {
   }
 
   handleError(error) {
-    console.log(error)
     if (error.response && error.response.data) {
-      if (error.response.status === 403) return
       throw new Error(error.response.data.message);
     }
     throw new Error('Unknown Error');
@@ -40,6 +53,30 @@ export default class ApiClient {
       .catch(error => {
         if (error.response && error.response.status === 403) return INVALID_TOKEN
         else this.handleError(error)
+      })
+  }
+
+  async createdStatistic(token, period) {
+    return this
+      .handleRequest({
+        method: 'get',
+        url: `/api/v1/statistic/created/${period}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+      })
+  }
+
+  async markStatistic(token, period, mark) {
+    return this
+      .handleRequest({
+        method: 'get',
+        url: `/api/v1/statistic/total/${mark}/${period}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
       })
   }
 }
