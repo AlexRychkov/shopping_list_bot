@@ -18,17 +18,18 @@ class StatisticService(private val statisticRepository: StatisticRepository) {
 
   import DatesConst._
 
-  private val DAY = 86400
+  private val DAY = 86400L
   private val periodDifference = Map(
     PERIOD_DAY -> DAY,
     PERIOD_WEEK -> DAY * 7,
-    PERIOD_MONTH -> 604800 * 31,
+    PERIOD_MONTH -> DAY * 31,
     PERIOD_YEAR -> DAY * 365,
-    PERIOD_ALL_TIME -> PERIOD_YEAR * 1000,
+    PERIOD_ALL_TIME -> DAY * 365 * 50,
   )
 
   private def resolveDatesFromPeriod(period: Int) = {
-    val from = Instant.now().getEpochSecond - periodDifference.getOrElse(period, DAY)
+    val diff = periodDifference.getOrElse(period, DAY)
+    val from = Instant.now().getEpochSecond - diff
     val to = Instant.now().getEpochSecond
     (from, to)
   }
