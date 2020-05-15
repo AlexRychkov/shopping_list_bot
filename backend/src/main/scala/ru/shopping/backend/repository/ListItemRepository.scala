@@ -1,8 +1,9 @@
 package ru.shopping.backend.repository
 
-import io.getquill.MappedEncoding
 import ru.shopping.backend.database.ApplicationJdbcContext
 import ru.shopping.common.models.{ItemMark, ListItem, ShoppingList}
+//import ModelsImplicits._
+import io.getquill.MappedEncoding
 
 class ListItemRepository(private val ctx: ApplicationJdbcContext) {
 
