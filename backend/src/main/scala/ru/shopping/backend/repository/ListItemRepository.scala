@@ -2,17 +2,12 @@ package ru.shopping.backend.repository
 
 import ru.shopping.backend.database.ApplicationJdbcContext
 import ru.shopping.common.models.{ItemMark, ListItem, ShoppingList}
-//import ModelsImplicits._
-import io.getquill.MappedEncoding
 
 class ListItemRepository(private val ctx: ApplicationJdbcContext) {
 
-  implicit val encodeItemMark = MappedEncoding[ItemMark, String](_.entryName)
-  implicit val decodeItemMark = MappedEncoding[String, ItemMark](ItemMark.withNameOption(_).get)
-
   import ctx._
 
-  def create(listId: ShoppingList.Id, name: String, comment: String, price: BigDecimal): ListItem = {
+  def create(listId: ShoppingList.Id, name: String, comment: Option[String], price: Option[BigDecimal]): ListItem = {
     val listItem = ListItem(listId, name, comment, price, ItemMark.Wait, 0L)
     val generatedId = ctx.run(quote {
       query[ListItem].insert(lift(listItem)).returningGenerated(_.id)
@@ -41,13 +36,13 @@ class ListItemRepository(private val ctx: ApplicationJdbcContext) {
       .returning(r => r)
   })
 
-  def setComment(listId: ShoppingList.Id, itemId: ListItem.Id, comment: String): ListItem = ctx.run(quote {
+  def setComment(listId: ShoppingList.Id, itemId: ListItem.Id, comment: Option[String]): ListItem = ctx.run(quote {
     query[ListItem].filter(item => item.id == lift(itemId) && item.listId == lift(listId))
       .update(_.comment -> lift(comment))
       .returning(r => r)
   })
 
-  def setPrice(listId: ShoppingList.Id, itemId: ListItem.Id, price: BigDecimal): ListItem = ctx.run(quote {
+  def setPrice(listId: ShoppingList.Id, itemId: ListItem.Id, price: Option[BigDecimal]): ListItem = ctx.run(quote {
     query[ListItem].filter(item => item.id == lift(itemId) && item.listId == lift(listId))
       .update(_.price -> lift(price))
       .returning(r => r)

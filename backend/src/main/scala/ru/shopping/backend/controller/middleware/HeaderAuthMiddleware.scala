@@ -20,7 +20,9 @@ object HeaderAuthMiddleware {
   })
 
   private val onFailure: AuthedRoutes[String, IO] = Kleisli(req => OptionT.liftF(Forbidden(req.context)))
-  private val authMiddleware: AuthMiddleware[IO, UserAuth] = AuthMiddleware(authUser, onFailure)
 
-  def apply(authRoutes: AuthedRoutes[UserAuth, IO]) = authMiddleware(authRoutes)
+  def apply(authRoutes: AuthedRoutes[UserAuth, IO]) = {
+    val middleware = AuthMiddleware(authUser, onFailure)
+    middleware(authRoutes)
+  }
 }

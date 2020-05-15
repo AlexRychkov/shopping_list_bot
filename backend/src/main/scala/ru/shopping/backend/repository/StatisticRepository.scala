@@ -2,7 +2,6 @@ package ru.shopping.backend.repository
 
 import ru.shopping.backend.database.ApplicationJdbcContext
 import ru.shopping.common.models.{ItemMark, ListItem, ShoppingList, User}
-import ModelsImplicits._
 
 import scala.annotation.unused
 

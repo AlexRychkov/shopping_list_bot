@@ -9,9 +9,9 @@ class BackendApi(backendConfig: BackendConfig) {
 
   def lists(id: Long): Uri = baseApi / "list" / s"$id"
 
-  def mark(listId: ListItem.Id, itemId: ListItem.Id): Uri = baseApi / "list" / s"$listId" / "item" / s"$itemId" / "mark"
+  def mark(listId: ListItem.Id, itemId: ListItem.Id): Uri = baseApi / "item" / s"$listId" / s"$itemId" / "mark"
 
-  def items(listId: ShoppingList.Id): Uri = baseApi / "list" / s"$listId" / "item"
+  def items(listId: ShoppingList.Id): Uri = baseApi / "item" / s"$listId"
 
   def auth(userId: User.Id): Uri = baseApi / "auth" / "req" / s"$userId"
 }

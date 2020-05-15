@@ -10,7 +10,7 @@ import ru.shopping.backend.service.StatisticService
 
 class StatisticController(private val statisticService: StatisticService) extends Controller {
   override val version: String = "v1"
-  override val rootPath: String = "statistic"
+  override val rootPath: String = "statistic/"
 
   private val authedRoutes = HeaderAuthMiddleware(AuthedRoutes.of {
     case GET -> Root / "created" / IntVar(period) as user => Ok(statisticService.fromPeriodUntilNow(user.id, period))

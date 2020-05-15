@@ -11,7 +11,7 @@ class ItemApi(private val client: Client[IO],
               private val backendApi: BackendApi) {
   def addItem(listId: ListItem.Id, name: String): IO[Unit] = {
     val req = Request(POST)
-      .withEntity(EditListItem(name, "", 0))
+      .withEntity(EditListItem(name, None, None))
       .withUri(backendApi.items(listId))
     client.expect[Unit](req)
   }

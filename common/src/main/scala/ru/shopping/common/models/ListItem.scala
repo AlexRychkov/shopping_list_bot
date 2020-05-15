@@ -5,7 +5,7 @@ import io.circe.generic.auto._
 import org.http4s.circe.{jsonEncoderOf, jsonOf}
 import org.http4s.{EntityDecoder, EntityEncoder}
 
-case class ListItem(listId: ShoppingList.Id, name: String, comment: String, price: BigDecimal, mark: ItemMark, id: ListItem.Id)
+case class ListItem(listId: ShoppingList.Id, name: String, comment: Option[String], price: Option[BigDecimal], mark: ItemMark, id: ListItem.Id)
 
 object ListItem {
   type Id = Long

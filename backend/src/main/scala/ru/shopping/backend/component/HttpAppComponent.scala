@@ -12,14 +12,14 @@ import org.http4s.server.middleware.CORS
 class HttpAppComponent(serviceComponent: ServiceComponent) {
   import serviceComponent._
 
+  lazy val repositoryComponent = wire[RepositoryComponent]
   lazy val listController = wire[ShoppingListController]
   lazy val itemController = wire[ListItemController]
   lazy val exchAuthController = wire[ExchangeAuthController]
   lazy val reqAuthController = wire[RequestAuthController]
   lazy val statisticController = wire[StatisticController]
   lazy val controllers: Seq[Controller] = wireSet[Controller].toSeq
-  lazy val httpApp: HttpApp[IO] = Router(controllers.map(ctr => s"/api/${ctr.version}/${ctr.rootPath}" -> ctr.controller): _*).orNotFound
-  val repositoryComponent = wire[RepositoryComponent]
+  lazy val httpApp: HttpApp[IO] = Router(controllers.map(ctr => s"/api/${ctr.version}/${ctr.rootPath}" -> ctr.controller):_*).orNotFound
 
   def apply(): HttpApp[IO] = CORS(httpApp)
 }

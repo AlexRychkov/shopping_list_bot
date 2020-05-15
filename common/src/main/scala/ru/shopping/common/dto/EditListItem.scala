@@ -5,7 +5,7 @@ import io.circe.generic.auto._
 import org.http4s.circe.{jsonEncoderOf, jsonOf}
 import org.http4s.{EntityDecoder, EntityEncoder}
 
-case class EditListItem(name: String, comment: String, price: BigDecimal)
+case class EditListItem(name: String, comment: Option[String], price: Option[BigDecimal])
 
 object EditListItem {
   implicit val editListItemEntityDecoder: EntityDecoder[IO, EditListItem] = jsonOf[IO, EditListItem]
