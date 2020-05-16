@@ -10,7 +10,7 @@ import ru.shopping.common.dto.EditShoppingList
 
 class ShoppingListController(private val shoppingListRepository: ShoppingListRepository) extends Controller {
   override val version: String = "v1"
-  override val rootPath: String = "list"
+  override val rootPath: String = "list/"
 
   override val controller: HttpRoutes[IO] = HttpRoutes.of[IO] {
     case GET -> Root / LongVar(creator) => Ok(shoppingListRepository.get(creator))

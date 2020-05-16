@@ -33,7 +33,7 @@ trait MarkItemCommandHandler extends CommandHandler {
     val itemId = extractItemId(update.command)
     AttachedListStorage.get(update.userId).fold(IO.unit)(listId => for {
       item <- itemApi.mark(listId, itemId, mark)
-      text = s"""You $actionText "${item.name}""""
+      text = s"""You mark "$actionText" item "${item.name}""""
       _ <- messageApi.answerCallbackQuery(AnswerCallbackQuery(update.id, Some(text)))
       items <- itemApi.items(listId)
       reply = ItemMapper(update.chatId, items)

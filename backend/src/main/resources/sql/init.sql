@@ -4,6 +4,7 @@ create table if not exists shopping_list (
     id bigint default nextval('shopping_list_id_seq'),
     creator bigint not null,
     name varchar(100) not null,
+    created bigint not null default (extract(epoch from current_timestamp))::bigint,
     primary key (id)
 );
 

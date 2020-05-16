@@ -5,7 +5,11 @@ import ru.shopping.telegram.api.update.Chat
 
 object HelpMapper {
   val showListsPhrase = "📄 Show lists"
-  private val showListsButton = Some(ReplyKeyboardMarkup(List(List(KeyboardButton(showListsPhrase)))))
+  val goToCabinetPhrase = "📟 Go to cabinet"
+  private val showListsButton = Some(ReplyKeyboardMarkup(List(
+    List(KeyboardButton(showListsPhrase)),
+    List(KeyboardButton(goToCabinetPhrase))
+  )))
 
   def apply(chatId: Chat.Id, text: String) = Reply(
     chat_id = chatId,

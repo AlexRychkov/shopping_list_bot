@@ -12,6 +12,8 @@ object BotCommand extends Enum[BotCommand] {
 
   case object help extends BotCommand
 
+  case object cabinet extends BotCommand
+
   case object unknown extends BotCommand
 
   case object lists extends BotCommand

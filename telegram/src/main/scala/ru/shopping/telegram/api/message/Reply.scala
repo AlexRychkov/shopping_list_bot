@@ -20,7 +20,7 @@ final case class InlineKeyboardButton(text: String, callback_data: String)
 
 final case class InlineKeyboardMarkup(inline_keyboard: List[List[InlineKeyboardButton]]) extends ReplyMarkup
 
-final case class Reply(chat_id: Long, text: String, reply_to_message_id: Option[Message.Id] = None, reply_markup: Option[ReplyMarkup] = None, parse_mode: Option[String] = None)
+final case class Reply(chat_id: Long, text: String, reply_to_message_id: Option[Message.Id] = None, reply_markup: Option[ReplyMarkup] = None, parse_mode: Option[String] = None, disable_web_page_preview: Option[Boolean] = None)
 
 object Reply {
   val HTML = "html"

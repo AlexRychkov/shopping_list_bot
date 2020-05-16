@@ -1,10 +1,9 @@
-package ru.shopping
+package ru.shopping.telegram
 
 import cats.effect.{ExitCode, IO, IOApp}
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.client.middleware.Logger
-import ru.shopping.api.{BackendApi, ItemApi, ListApi}
-import ru.shopping.config.AppConfig
+import ru.shopping.api.{AuthApi, BackendApi, ItemApi, ListApi}
 import ru.shopping.telegram.api.TelegramApi
 import ru.shopping.telegram.api.message.MessageApi
 import ru.shopping.telegram.api.update.UpdateApi
@@ -23,7 +22,8 @@ object TelegramApplication extends IOApp {
       messageApi = MessageApi(client, telegramApi)
       shoppingApi = ListApi(client, backendApi)
       itemApi = ItemApi(client, backendApi)
-      handlerService = HandlersService(messageApi, shoppingApi, itemApi)
+      authApi = AuthApi(client, backendApi)
+      handlerService = HandlersService(config, messageApi, shoppingApi, itemApi, authApi)
       updatesEngine = UpdatesEngine(handlerService)
       updatesApi = UpdateApi(client, telegramApi)
       updateService = UpdateService(global, updatesApi, updatesEngine)

@@ -16,6 +16,11 @@ object ItemMark extends Enum[ItemMark] {
     override val order: Int = 0
   }
 
+  case object Absent extends ItemMark {
+    override val emoji: String = " 🤷 "
+    override val order: Int = 1
+  }
+
   case object Bought extends ItemMark {
     override val emoji: String = " ✅ "
     override val order: Int = 2
@@ -24,11 +29,6 @@ object ItemMark extends Enum[ItemMark] {
   case object Canceled extends ItemMark {
     override val emoji: String = " ❌ "
     override val order: Int = 3
-  }
-
-  case object Absent extends ItemMark {
-    override val emoji: String = " 🤷 "
-    override val order: Int = 1
   }
 
   implicit val encoder: Encoder[ItemMark] = (mark: ItemMark) => Json.fromString(mark.entryName)
