@@ -5,6 +5,7 @@ import java.time.Instant
 import ru.shopping.backend.repository.StatisticRepository
 import ru.shopping.common.models.ItemMark.Wait
 import ru.shopping.common.models.{ItemMark, ListItem, ShoppingList, User}
+import scala.concurrent.duration._
 
 object DatesConst {
   val PERIOD_DAY = 0
@@ -20,11 +21,11 @@ class StatisticService(private val statisticRepository: StatisticRepository) {
 
   private val DAY = 86400L
   private val periodDifference = Map(
-    PERIOD_DAY -> DAY,
-    PERIOD_WEEK -> DAY * 7,
-    PERIOD_MONTH -> DAY * 31,
-    PERIOD_YEAR -> DAY * 365,
-    PERIOD_ALL_TIME -> DAY * 365 * 50,
+    PERIOD_DAY -> DAYS.toSeconds(1),
+    PERIOD_WEEK -> DAYS.toSeconds(7),
+    PERIOD_MONTH -> DAYS.toSeconds(31),
+    PERIOD_YEAR -> DAYS.toSeconds(365),
+    PERIOD_ALL_TIME -> DAYS.toSeconds(365 * 50),
   )
 
   private def resolveDatesFromPeriod(period: Int) = {
