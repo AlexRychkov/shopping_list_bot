@@ -1,4 +1,8 @@
 import axios from 'axios';
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
+const { API_URL } = publicRuntimeConfig
 
 export const INVALID_TOKEN = 'INVALID_TOKEN'
 
@@ -20,7 +24,7 @@ export const MarkEnum = Object.freeze({
 export default class ApiClient {
   constructor() {
     this.defaultOptions = {
-      baseURL: "http://localhost:8080",//config.api.baseURL,
+      baseURL: API_URL,
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
