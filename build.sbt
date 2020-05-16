@@ -12,13 +12,20 @@ def module(moduleName: String) = Project(moduleName, file(moduleName))
   .settings(
     scalaVersion := Version.scala,
     scalacOptions := ScalacOptions.options,
-    libraryDependencies ++= Dependencies.common ++ moduleDependencies.getOrElse(moduleName, Seq())
+    libraryDependencies ++= Dependencies.common ++ moduleDependencies.getOrElse(moduleName, Seq()),
+    test in assembly := {}
   )
 
 lazy val common = module("common")
 
 lazy val backend = module("backend")
   .dependsOn(common)
+  .settings(
+    mainClass in assembly := Some("ru.shopping.backend.BackendApplication")
+  )
 
 lazy val bot = module("telegram")
   .dependsOn(common)
+  .settings(
+    mainClass in assembly := Some("ru.shopping.telegram.TelegramApplication")
+  )
