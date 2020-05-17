@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  db:
+    container_name: shopping-list-db
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 0.0.0.0:5432:5432
+  backend:
+    container_name: backend
+    image: shopping-list/backend
+    ports:
+      - 0.0.0.0:8080:8080
+  telegram:
+    container_name: telegram
+    image: shopping-list/telegram
